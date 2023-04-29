@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-
+import '../Home/homeCustomerAdmin_page.dart';
+import '../Home/homeCustomerRepre_page.dart';
+import '../Home/homeDriver_page.dart';
+import '../Home/homeManagerGeneral_page.dart';
+import '../Home/homeManagerRegional_page.dart';
 import '../forgotpasword/forgotpaswordStep1_page.dart';
 import '../singup/singup_page.dart';
 
@@ -132,7 +136,46 @@ class _LoginpageState extends State<Loginpage>{
                         ElevatedButton(
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
-
+                                if(correo.text.contains("driver")){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HomePageDriverpage())
+                                  );
+                                }
+                                if(correo.text.contains("managerG")){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HomeManagerpage())
+                                  );
+                                }
+                                if(correo.text.contains("managerR")){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HomeManagerRegionalpage())
+                                  );
+                                }
+                                if(correo.text.contains("customerA")){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HomeCustomerAdminpage())
+                                  );
+                                }
+                                if(correo.text.contains("customerR")){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HomeCustomerReprepage())
+                                  );
+                                }
                               }
                             },
                             child: Container(
