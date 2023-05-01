@@ -137,6 +137,8 @@ class _LoginpageState extends State<Loginpage>{
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
                                 if(correo.text.contains("driver")){
+                                  correo.clear();
+                                  contrasena.clear();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -145,6 +147,8 @@ class _LoginpageState extends State<Loginpage>{
                                   );
                                 }
                                 if(correo.text.contains("managerG")){
+                                  correo.clear();
+                                  contrasena.clear();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -153,6 +157,8 @@ class _LoginpageState extends State<Loginpage>{
                                   );
                                 }
                                 if(correo.text.contains("managerR")){
+                                  correo.clear();
+                                  contrasena.clear();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -161,6 +167,8 @@ class _LoginpageState extends State<Loginpage>{
                                   );
                                 }
                                 if(correo.text.contains("customerA")){
+                                  correo.clear();
+                                  contrasena.clear();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -169,6 +177,8 @@ class _LoginpageState extends State<Loginpage>{
                                   );
                                 }
                                 if(correo.text.contains("customerR")){
+                                  correo.clear();
+                                  contrasena.clear();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
