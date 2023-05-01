@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../settings/settings_page.dart';
+
 
 class HomeManagerpage extends StatefulWidget {
   @override
@@ -30,7 +32,14 @@ class _HomeManagerpageState extends State<HomeManagerpage>{
           actions: [
             IconButton(
               icon: Icon(Icons.settings, color: Colors.black,),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            Settingspage())
+                );
+              },
             ),
           ],
           backgroundColor: Colors.white,
