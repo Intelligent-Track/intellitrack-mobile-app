@@ -2,17 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-
-import 'Routing.dart';
-
+import 'package:intellitrack/Model/environment.dart';
 
 
 class SingUpService {
 
   final http.Client request =  http.Client();
 
-  Future<bool> SingUp( String username, String password, String name, String email, String phone, String nit, String companyName, String document) async{
-    final uri = Uri.http(Routing().url_api,Routing().singUp);
+  Future<bool> singUp(String username, String password, String name, String email, String phone, String nit, String companyName, String document) async{
+    final uri = Uri.http(Environment.apiUrl, Environment.signPath);
     final headers = {'Content-Type': 'application/json'};
     final body = json.encode({
       'name': name,

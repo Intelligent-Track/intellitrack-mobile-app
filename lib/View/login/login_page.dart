@@ -4,6 +4,7 @@ import '../Home/homeCustomerRepre_page.dart';
 import '../Home/homeDriver_page.dart';
 import '../Home/homeManagerGeneral_page.dart';
 import '../Home/homeManagerRegional_page.dart';
+import '../../Controller/login_service.dart';
 import '../forgotpasword/forgotpaswordStep1_page.dart';
 import '../singup/singup_page.dart';
 
@@ -17,6 +18,7 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 var correo = TextEditingController();
 var contrasena = TextEditingController();
+var loginService = LoginService();
 
 class _LoginpageState extends State<Loginpage>{
 
@@ -135,6 +137,7 @@ class _LoginpageState extends State<Loginpage>{
                         Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/50)),
                         ElevatedButton(
                             onPressed: () async {
+                              var rep = loginService.login(correo.text, contrasena.text);
                               if (formKey.currentState!.validate()) {
                                 if(correo.text.contains("driver")){
                                   correo.clear();

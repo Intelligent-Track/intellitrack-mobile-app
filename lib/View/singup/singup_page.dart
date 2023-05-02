@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../Controller/singUp_service.dart';
 
 class SingUPpage extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 var correo = TextEditingController();
 var pin = TextEditingController();
+var signupService = SingUpService();
+
 
 class _SingUPpageState extends State<SingUPpage>{
 
@@ -374,6 +377,7 @@ class _SingUPpageState extends State<SingUPpage>{
                   Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/50)),
                   ElevatedButton(
                       onPressed: () async {
+                        var rep = signupService.singUp(emailCtrl.text, passwordCtrl.text, nombreCtrl.text, emailCtrl.text, telefonoCtrl.text, nitCtrl.text, empresaNombreCtrl.text, "");
                         if (formKey.currentState!.validate()) {
 
                         }

@@ -3,16 +3,14 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import 'Routing.dart';
-
-
+import '../Model/environment.dart';
 
 class LoginService {
 
   final http.Client request =  http.Client();
 
-  Future<String> Login( String email, String password) async{
-    final uri = Uri.http(Routing().url_api,Routing().login);
+  Future<String> login(String email, String password) async{
+    final uri = Uri.http(Environment.apiUrl, Environment.loginPath);
     final headers = {'Content-Type': 'application/json'};
     final body = json.encode({'username': email, 'password': password});
     String bodyRep;

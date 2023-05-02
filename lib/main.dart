@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intellitrack/Model/environment.dart';
 
 import 'View/login/login_page.dart';
 
-void main() {
+Future <void> main() async {
+  await dotenv.load(fileName: Environment.filename);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Inellitrack',
+      title: 'IntelliTrack',
       theme: ThemeData(canvasColor: Colors.white, fontFamily: "inellitrackFamily", brightness: Brightness.light),
       home: Loginpage(),
     );
