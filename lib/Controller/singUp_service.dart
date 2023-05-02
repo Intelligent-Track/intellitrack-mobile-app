@@ -15,7 +15,6 @@ class SingUpService {
     final body = json.encode({
       'name': name,
       'password': password,
-      'username': username,
       'phone': phone,
       'nit': nit,
       'companyName': companyName,
@@ -25,10 +24,10 @@ class SingUpService {
     try{
       final response = await http.post(uri, headers: headers, body: body).timeout(Duration(seconds: 10));
       print(response.statusCode);
-      if(response.statusCode == 201){
+      if(response.statusCode == 200){
         return true;
       }else{
-        throw HttpException(response.body);
+        return false;
       }
     } on Exception{
       throw Exception();

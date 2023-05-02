@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../Home/homeCustomerAdmin_page.dart';
 import '../Home/homeCustomerRepre_page.dart';
 import '../Home/homeDriver_page.dart';
@@ -19,17 +22,20 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
 var correo = TextEditingController();
 var contrasena = TextEditingController();
 var loginService = LoginService();
+var  loading = false;
+var  ver = true;
 
 class _LoginpageState extends State<Loginpage>{
 
   @override
   void initState() {
     super.initState();
+    loading = false;
   }
-  var  ver = true;
+
   @override
   Widget build(BuildContext context){
-    return Scaffold(
+    return loading? Center(child: CircularProgressIndicator(color: Colors.red,),) :Scaffold(
       body: ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(
             physics: BouncingScrollPhysics() // Establecer el color de la animación de desplazamiento
@@ -137,58 +143,78 @@ class _LoginpageState extends State<Loginpage>{
                         Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/50)),
                         ElevatedButton(
                             onPressed: () async {
-                              var rep = loginService.login(correo.text, contrasena.text);
                               if (formKey.currentState!.validate()) {
-                                if(correo.text.contains("driver")){
+                                setState(() {
+                                  loading = true;
+                                });
+                              var rep = await loginService.login(correo.text, contrasena.text);
+                              if(rep.estatus){
+                                print(rep.message);
+                                if(rep.message.contains("ROLE_CONDUCTOR")){
                                   correo.clear();
                                   contrasena.clear();
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomePageDriverpage())
+                                              HomePageDriverpage()),(Route<dynamic> route) => false,
                                   );
                                 }
-                                if(correo.text.contains("managerG")){
+                                if(rep.message.contains("ROLE_GERENTEGEN")){
                                   correo.clear();
                                   contrasena.clear();
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeManagerpage())
+                                              HomeManagerpage()),(Route<dynamic> route) => false,
                                   );
                                 }
-                                if(correo.text.contains("managerR")){
+                                if(rep.message.contains("ROLE_GERENTEREG")){
                                   correo.clear();
                                   contrasena.clear();
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeManagerRegionalpage())
+                                              HomeManagerRegionalpage()),(Route<dynamic> route) => false,
                                   );
                                 }
-                                if(correo.text.contains("customerA")){
+                                if(rep.message.contains("ROLE_CLIENTEADM")){
                                   correo.clear();
                                   contrasena.clear();
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeCustomerAdminpage())
+                                              HomeCustomerAdminpage()),(Route<dynamic> route) => false,
                                   );
                                 }
-                                if(correo.text.contains("customerR")){
+                                if(rep.message.contains("ROLE_CLIENTEREPRE")){
                                   correo.clear();
                                   contrasena.clear();
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeCustomerReprepage())
+                                              HomeCustomerReprepage()),(Route<dynamic> route) => false,
                                   );
                                 }
+                              }else{
+                                setState(() {
+                                  loading = false;
+                                });
+                                Timer(Duration(milliseconds: 100), () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(rep.message),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                });
+
+                              }
+
                               }
                             },
                             child: Container(

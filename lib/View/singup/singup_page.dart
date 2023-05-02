@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../Controller/singUp_service.dart';
@@ -12,6 +14,7 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
 var correo = TextEditingController();
 var pin = TextEditingController();
 var signupService = SingUpService();
+var loading = false;
 
 
 class _SingUPpageState extends State<SingUPpage>{
@@ -19,10 +22,11 @@ class _SingUPpageState extends State<SingUPpage>{
   @override
   void initState() {
     super.initState();
+    loading = false;
   }
   final TextEditingController nombreCtrl = TextEditingController();
   final TextEditingController telefonoCtrl = TextEditingController();
-  final TextEditingController cargoCtrl = TextEditingController();
+  final TextEditingController cedulaCtrl = TextEditingController();
   final TextEditingController passwordCtrl = TextEditingController();
   final TextEditingController confirmPasswordCtrl = TextEditingController();
   final TextEditingController empresaDescripcionCtrl = TextEditingController();
@@ -32,7 +36,7 @@ class _SingUPpageState extends State<SingUPpage>{
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
+    return loading? Center(child: CircularProgressIndicator(color: Colors.red,),):Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.black,),
@@ -99,7 +103,7 @@ class _SingUPpageState extends State<SingUPpage>{
                             hintText: 'Nombre',
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.length< 4) {
                               return 'Ingrese un nombre válido';
                             }
                             return null;
@@ -135,7 +139,7 @@ class _SingUPpageState extends State<SingUPpage>{
                             FilteringTextInputFormatter.digitsOnly,
                           ],
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.length == 10 || value.isEmpty) {
                               return 'Ingrese un número telefónico válido';
                             }
                             return null;
@@ -146,7 +150,7 @@ class _SingUPpageState extends State<SingUPpage>{
                           onEditingComplete: (){
                             FocusScope.of(context).nextFocus();
                           },
-                          controller: cargoCtrl,
+                          controller: cedulaCtrl,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Color.fromARGB(255, 231, 230, 230),
@@ -164,11 +168,11 @@ class _SingUPpageState extends State<SingUPpage>{
                               borderRadius: BorderRadius.circular(15.0),
                               borderSide: BorderSide.none,
                             ),
-                            hintText: 'Cargo en la empresa',
+                            hintText: 'Cedula',
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Ingrese un cargo válido';
+                            if (value == null || value.length == 10 || value.isEmpty) {
+                              return 'Ingrese cedula';
                             }
                             return null;
                           },
@@ -200,7 +204,7 @@ class _SingUPpageState extends State<SingUPpage>{
                           ),
                           obscureText: true,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.length < 10 ||value.isEmpty) {
                               return 'Ingrese una contraseña válida';
                             }
                             return null;
@@ -377,9 +381,30 @@ class _SingUPpageState extends State<SingUPpage>{
                   Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/50)),
                   ElevatedButton(
                       onPressed: () async {
-                        var rep = signupService.singUp(emailCtrl.text, passwordCtrl.text, nombreCtrl.text, emailCtrl.text, telefonoCtrl.text, nitCtrl.text, empresaNombreCtrl.text, "");
                         if (formKey.currentState!.validate()) {
-
+                          setState(() {
+                            loading = true;
+                          });
+                          var rep = await signupService.singUp(emailCtrl.text, passwordCtrl.text, nombreCtrl.text, emailCtrl.text, telefonoCtrl.text, nitCtrl.text, empresaNombreCtrl.text, cedulaCtrl.text);
+                          if(rep){
+                            SnackBar(
+                              content: Text("Registro Exitoso"),
+                              backgroundColor: Colors.green,
+                            );
+                            Navigator.pop(context);
+                          }else{
+                            setState(() {
+                              loading = false;
+                            });
+                            Timer(Duration(milliseconds: 100), () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Registro Fallido"),
+                                    backgroundColor: Colors.red,
+                                  ),
+                              );
+                            });
+                          }
                         }
                       },
                       child: Container(
