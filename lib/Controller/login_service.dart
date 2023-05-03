@@ -2,31 +2,34 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Routing.dart';
-
-
+import '../Model/environment.dart';
+import '../Model/responseLogin.dart';
 
 class LoginService {
 
   final http.Client request =  http.Client();
 
-  Future<String> Login( String email, String password) async{
-    final uri = Uri.http(Routing().url_api,Routing().login);
+  Future<ResponseLogin> login(String email, String password) async{
+    final uri = Uri.http(Environment.apiUrl, Environment.loginPath);
     final headers = {'Content-Type': 'application/json'};
     final body = json.encode({'username': email, 'password': password});
-    String bodyRep;
+    var bodyRep;
     try{
       final response = await http.post(uri, headers: headers, body: body).timeout(Duration(seconds: 10));
       print(response.statusCode);
       if(response.statusCode == 200){
-        bodyRep = jsonDecode(response.body)['status'] as String;
-        return bodyRep;
+        bodyRep = jsonDecode(response.body);
+        //final prefs = await SharedPreferences.getInstance();
+        //prefs.setString('tokenJWT', bodyRep["accessToken"]);
+        return ResponseLogin(true, bodyRep["roles"][0]);
       }else{
-        throw HttpException(response.body);
+        return ResponseLogin(false, "Error de autenticacion");
       }
-    } on Exception{
-      throw Exception();
+    } catch(ex){
+      print(ex);
+      return ResponseLogin(false, "Error de autenticacion");
     }
 
   }
