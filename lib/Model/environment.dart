@@ -27,4 +27,9 @@ class Environment {
     return dotenv.env['FORGOTPASS_PATH'] ?? 'NOT FOUND';
   }
 
+  static String get quoutationPath {
+    return dotenv.env['QUOTATION_PATH'] ?? 'NOT FOUND';
+  }
+
 }
+
