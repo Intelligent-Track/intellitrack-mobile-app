@@ -9,6 +9,7 @@ import '../Home/homeManagerGeneral_page.dart';
 import '../Home/homeManagerRegional_page.dart';
 import '../../Controller/login_service.dart';
 import '../forgotpasword/forgotpaswordStep1_page.dart';
+import '../quotation/quotation_page.dart';
 import '../singup/singup_page.dart';
 
 
@@ -240,6 +241,27 @@ class _LoginpageState extends State<Loginpage>{
                           overlayColor: MaterialStateProperty.all<Color>(Colors.grey), // color deseado
                         ))
                       ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                   QuotationPage())
+                      );
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height/15,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("¿Quieres conocer el precio de un envio sin Ingresar?", style: TextStyle(color: Colors.grey),),
+                          Text(" COTIZA", style: TextStyle(color: Color.fromARGB(255, 255, 110, 89)),),
+                        ],
+                      ),
                     ),
                   ),
                   GestureDetector(
