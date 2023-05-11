@@ -3,6 +3,8 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+
 
 
 import 'package:http/http.dart' as http;
@@ -37,35 +39,24 @@ class _QuotationPageState extends State<QuotationPage> {
   City? _destinationCity;
   Quotation? q;
   double? _valor;
+  List<String> typeLoad = ['Pequeña', 'Medianas', 'Grandes o en estibas', 'Voluminosas', 'De dimensiones especiales'];
+  String? _type;
 
   @override
   void initState() {
     super.initState();
     loading = false;
-    fetchCities(); // Llamar a la función para obtener las ciudades
+    quotationService.fetchCities().then((value) => {
+      setState((){
+        cities = value;
+      }),
+    });
   }
-
-  Future<void> fetchCities() async {
-    final ware= Uri.http(Environment.apiUrl,Environment.quoutationPath.padRight(Environment.quoutationPath.length+1,'/allCities'));
-    try {
-      final response = await http.get(ware); // Cambie "https://su-api-ciudades/ciudades" por la URL correcta de su API
-      if (response.statusCode == 200) {
-        final List<dynamic> citiesJson = jsonDecode(response.body);
-        final List<City> _cities = citiesJson.map((json) => City.fromJson(json)).toList(); // Convertir la lista de JSON en una lista de objetos City
-        setState(() {
-          cities = _cities; // Almacenar la lista de ciudades en el estado de QuotationPage
-        });
-      } else {
-        throw Exception('Error al obtener la lista de ciudades'); // Manejar errores de la solicitud HTTP
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
-   
+    
     return loading? Center(child: CircularProgressIndicator(color: Colors.red,),):Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -137,16 +128,28 @@ class _QuotationPageState extends State<QuotationPage> {
                     });
                   },
                 ),
-                TextFormField(
-                  controller: _shipmentTypeController,
+                 DropdownButtonFormField<String>(
+                  value: _type,
+                  items: typeLoad.map((string) {
+                    return DropdownMenuItem<String>(
+                      value: string,
+                      child: Text(string),
+                    );
+                  }).toList(),
                   decoration: const InputDecoration(
                     labelText: 'Tipo de envío',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null) {
                       return 'Por favor, ingrese el tipo de envío';
                     }
                     return null;
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      _type=value!;  
+                      _shipmentTypeController.text = value;
+                    });
                   },
                 ),
                 TextFormField(
@@ -160,8 +163,9 @@ class _QuotationPageState extends State<QuotationPage> {
                         minTime: DateTime.now(),
                         maxTime: DateTime(2050, 12, 31),
                         onConfirm: (date) {
-                      _departureDateController.text = date.toString();
-                    }, currentTime: DateTime.now(), locale: LocaleType.es);
+                          final DateFormat formatter = DateFormat('yyyy-MM-dd');
+                          _departureDateController.text = formatter.format(date);
+                        }, currentTime: DateTime.now(), locale: LocaleType.es);
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -178,11 +182,12 @@ class _QuotationPageState extends State<QuotationPage> {
                   onTap: () {
                     DatePicker.showDatePicker(context,
                         showTitleActions: true,
-                        minTime: DateTime.now(),
+                        minTime: _departureDateController.text.isNotEmpty ? DateFormat('yyyy-MM-dd').parse(_departureDateController.text) : DateTime.now(),
                         maxTime: DateTime(2050, 12, 31),
                         onConfirm: (date) {
-                      _arrivalDateController.text = date.toString();
-                    }, currentTime: DateTime.now(), locale: LocaleType.es);
+                          final DateFormat formatter = DateFormat('yyyy-MM-dd');
+                          _arrivalDateController.text = formatter.format(date);
+                        }, currentTime: DateTime.now(), locale: LocaleType.es);
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -198,11 +203,11 @@ class _QuotationPageState extends State<QuotationPage> {
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   decoration: const InputDecoration(
-                    labelText: 'Dimensiones del envío',
+                    labelText: 'Dimensiones del envío (m^3)',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor, ingrese las dimensiones en m3 del envío';
+                      return 'Por favor, ingrese las dimensiones en m^3 del envío';
                     }
                     return null;
                   },
@@ -243,7 +248,7 @@ class _QuotationPageState extends State<QuotationPage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: const Text('Cotización'),
-                              content: Text('El precio de la cotización es de: $_valor '),
+                              content: Text('El precio de la cotización es de: \$ $_valor '),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () {
