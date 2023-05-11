@@ -31,5 +31,10 @@ class Environment {
     return dotenv.env['QUOTATION_PATH'] ?? 'NOT FOUND';
   }
 
+  static String get deliverybyNit {
+    print(dotenv.env['DELIVERY_PATH']);
+    return dotenv.env['DELIVERY_PATH'] ?? 'NOT FOUND';
+  }
+
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../ServicesCustomer/ServiceCustomer_page.dart';
 import '../settings/settings_page.dart';
 
 
@@ -94,7 +95,14 @@ class _HomeCustomerAdminpageState extends State<HomeCustomerAdminpage>{
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ServiceCustomerpage())
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.all(20),
                         height:  MediaQuery.of(context).size.height/7,
