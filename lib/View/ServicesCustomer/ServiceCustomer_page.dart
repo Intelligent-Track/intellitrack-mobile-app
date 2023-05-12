@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../Controller/InfoUser_service.dart';
 import '../../Controller/delivery_service.dart';
 import '../../Model/delivery.dart';
 
 
 
 class ServiceCustomerpage extends StatefulWidget {
+  String username;
+  ServiceCustomerpage(this.username);
   @override
   State<ServiceCustomerpage> createState() => _ServiceCustomerpageState();
 }
@@ -28,10 +31,12 @@ class _ServiceCustomerpageState extends State<ServiceCustomerpage>{
   @override
   void initState() {
     super.initState();
-    DeliveryService().deliveryByNit("10122012334-8").then((deliverys) {
-      setState(() {
-        delys = deliverys;
-        busqueda = deliverys;
+    InfoUserService().infoUser(widget.username).then((user) {
+      DeliveryService().deliveryByNit(user.nit).then((deliverys) {
+        setState(() {
+          delys = deliverys;
+          busqueda = deliverys;
+        });
       });
     });
   }
@@ -325,7 +330,7 @@ class _ServiceCustomerpageState extends State<ServiceCustomerpage>{
                           padding: EdgeInsets.all(20),
                           height:  MediaQuery.of(context).size.height/1.2,
                           width: MediaQuery.of(context).size.width,
-                          child: Services(context),
+                          child: delys.isNotEmpty? Services(context):Text("No tienes servicios asociados"),
                         ),
                       ),
                     )

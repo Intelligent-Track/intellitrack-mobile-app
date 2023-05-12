@@ -7,6 +7,7 @@ import 'Controller/ValidateRoot_service.dart';
 import 'View/ServicesCustomer/ServiceCustomer_page.dart';
 import 'View/login/login_page.dart';
 import 'View/login/security_page.dart';
+import 'View/vehicle/vehicle_page.dart';
 
 Future <void> main() async {
   await dotenv.load(fileName: Environment.filename);

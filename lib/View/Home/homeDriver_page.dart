@@ -4,6 +4,8 @@ import 'package:intellitrack/View/settings/settings_page.dart';
 
 
 class HomePageDriverpage extends StatefulWidget {
+  String username;
+  HomePageDriverpage(this.username);
   @override
   State<HomePageDriverpage> createState() => _HomePageDriverpageState();
 }
@@ -59,7 +61,14 @@ class _HomePageDriverpageState extends State<HomePageDriverpage>{
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,
@@ -93,7 +102,14 @@ class _HomePageDriverpageState extends State<HomePageDriverpage>{
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,
@@ -127,7 +143,14 @@ class _HomePageDriverpageState extends State<HomePageDriverpage>{
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,
@@ -161,7 +184,14 @@ class _HomePageDriverpageState extends State<HomePageDriverpage>{
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,
