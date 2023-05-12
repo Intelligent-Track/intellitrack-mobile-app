@@ -38,10 +38,10 @@ class QuotationService {
    // Lista de ciudades que se cargará desde la API
  
 
-  Future<List<City>?> fetchCities() async {
+  Future<List<City>> fetchCities() async {
     final ware= Uri.http(Environment.apiUrl,Environment.quoutationPath.padRight(Environment.quoutationPath.length+1,'/allCities'));
     try {
-      final response = await http.get(ware); // Cambie "https://su-api-ciudades/ciudades" por la URL correcta de su API
+      final response = await http.get(ware); 
       if (response.statusCode == 200) {
         final List<dynamic> citiesJson = jsonDecode(response.body);
         final List<City> cities = citiesJson.map((json) => City.fromJson(json)).toList(); // Convertir la lista de JSON en una lista de objetos City
@@ -52,8 +52,8 @@ class QuotationService {
       }
     } catch (e) {
       print(e);
+      return [];
     }
-    return null;
   }
   Future<double>  showQuotationResult(Quotation q) async {
   // Obtener la cotización

@@ -258,7 +258,7 @@ class _LoginpageState extends State<Loginpage>{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("¿Quieres conocer el precio de un envio sin Ingresar?", style: TextStyle(color: Colors.grey),),
+                          Text("¿Quieres conocer el precio de un envío sin Ingresar?", style: TextStyle(color: Colors.grey),),
                           Text(" COTIZA", style: TextStyle(color: Color.fromARGB(255, 255, 110, 89)),),
                         ],
                       ),
