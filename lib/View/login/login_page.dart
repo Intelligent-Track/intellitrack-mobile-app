@@ -158,7 +158,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomePageDriverpage()),(Route<dynamic> route) => false,
+                                              HomePageDriverpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                                 if(rep.message.contains("ROLE_GERENTEGEN")){
@@ -168,7 +168,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeManagerpage()),(Route<dynamic> route) => false,
+                                              HomeManagerpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                                 if(rep.message.contains("ROLE_GERENTEREG")){
@@ -178,7 +178,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeManagerRegionalpage()),(Route<dynamic> route) => false,
+                                              HomeManagerRegionalpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                                 if(rep.message.contains("ROLE_CLIENTEADM")){
@@ -188,7 +188,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeCustomerAdminpage()),(Route<dynamic> route) => false,
+                                              HomeCustomerAdminpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                                 if(rep.message.contains("ROLE_CLIENTEREPRE")){
@@ -198,7 +198,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeCustomerReprepage()),(Route<dynamic> route) => false,
+                                              HomeCustomerReprepage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                               }else{

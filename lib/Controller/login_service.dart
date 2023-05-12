@@ -23,13 +23,13 @@ class LoginService {
         bodyRep = jsonDecode(response.body);
         //final prefs = await SharedPreferences.getInstance();
         //prefs.setString('tokenJWT', bodyRep["accessToken"]);
-        return ResponseLogin(true, bodyRep["roles"][0]);
+        return ResponseLogin(true, bodyRep["roles"][0], bodyRep["username"]);
       }else{
-        return ResponseLogin(false, "Error de autenticacion");
+        return ResponseLogin(false, "Error de autenticacion", "");
       }
     } catch(ex){
       print(ex);
-      return ResponseLogin(false, "Error de autenticacion");
+      return ResponseLogin(false, "Error de autenticacion","");
     }
 
   }
