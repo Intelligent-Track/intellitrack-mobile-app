@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../settings/settings_page.dart';
+import '../warehouse/warehouse_page.dart';
 
 
 class HomeManagerRegionalpage extends StatefulWidget {
@@ -63,11 +64,11 @@ class _HomeManagerpageRegionalState extends State<HomeManagerRegionalpage>{
                 children: [
                   GestureDetector(
                     onTap: (){
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
-                          backgroundColor: Colors.green,
-                        ),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                   WarehouseListPage())
                       );
                     },
                     child: Container(
