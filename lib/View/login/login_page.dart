@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intellitrack/View/ServicesCustomer/InfoService_page.dart';
 import '../Home/homeCustomerAdmin_page.dart';
 import '../Home/homeCustomerRepre_page.dart';
 import '../Home/homeDriver_page.dart';
@@ -181,6 +182,7 @@ class _LoginpageState extends State<Loginpage>{
                                               HomeManagerRegionalpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
+
                                 if(rep.message.contains("ROLE_CLIENTEADM")){
                                   correo.clear();
                                   contrasena.clear();
@@ -213,9 +215,7 @@ class _LoginpageState extends State<Loginpage>{
                                     ),
                                   );
                                 });
-
                               }
-
                               }
                             },
                             child: Container(
