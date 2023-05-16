@@ -141,7 +141,8 @@ class _LoginpageState extends State<Loginpage>{
                                 },
                               ),
                             ],
-                          )),
+                          )
+                        ),
                         Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/50)),
                         ElevatedButton(
                             onPressed: () async {
@@ -239,7 +240,8 @@ class _LoginpageState extends State<Loginpage>{
                           );
                         }, child:Text("¿Olvido su contraseña? ", style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w400),),style: ButtonStyle(
                           overlayColor: MaterialStateProperty.all<Color>(Colors.grey), // color deseado
-                        ))
+                          )
+                        )
                       ],
                     ),
                   ),
