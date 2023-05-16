@@ -34,6 +34,7 @@ class Environment {
   static String get deliverybyNit {
     return dotenv.env['DELIVERY_PATH'] ?? 'NOT FOUND';
   }
+
   static String get infoUserPath {
     return dotenv.env['INFOUSER_PATH'] ?? 'NOT FOUND';
   }
@@ -41,5 +42,12 @@ class Environment {
     return dotenv.env['WAREHOUSE_PATH'] ?? 'NOT FOUND';
   }
 
+  static String get editDeliveryPath {
+    return dotenv.env['EDITDELIVEY_PATH'] ?? 'NOT FOUND';
+  }
+
+  static String get deleteDeliveryPath {
+    return dotenv.env['DELETEDELIVEY_PATH'] ?? 'NOT FOUND';
+  }
 }
 

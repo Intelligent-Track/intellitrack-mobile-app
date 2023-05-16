@@ -11,8 +11,26 @@ class Delivery{
   final String type;
   final int idDriver;
   final String nit;
-  final String comments;
+  late final String comments;
   final List<Product> products;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'origin': origin,
+      'destination': destination,
+      'departureDate': departureDate,
+      'arriveDate': arriveDate,
+      'costPerTon': costPerTon,
+      'travelCost': travelCost,
+      'status': status,
+      'type': type,
+      'idDriver': idDriver,
+      'nit': nit,
+      'comments': comments,
+      'products': products.map((product) => product.toJson()).toList(),
+    };
+  }
 }
 
 class Product{
@@ -22,4 +40,14 @@ class Product{
   final double weight;
   final double volume;
   final String name;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'category': category,
+      'weight': weight,
+      'volume': volume,
+      'name': name,
+    };
+  }
 }
