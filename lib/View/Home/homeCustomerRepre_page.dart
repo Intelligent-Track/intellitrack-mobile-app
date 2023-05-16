@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../ServicesCustomer/ServiceCustomer_page.dart';
 import '../settings/settings_page.dart';
+import '../vehicle/vehicle_page.dart';
 
 
 class HomeCustomerReprepage extends StatefulWidget {
+  String username;
+  HomeCustomerReprepage(this.username);
   @override
   State<HomeCustomerReprepage> createState() => _HomeCustomerReprepageState();
 }
@@ -53,14 +57,21 @@ class _HomeCustomerReprepageState extends State<HomeCustomerReprepage>{
           ),
           child: SingleChildScrollView(
             child: Container(
-                height: MediaQuery.of(context).size.height/1.8,
+                height: MediaQuery.of(context).size.height/1.4,
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(horizontal: 12,vertical: 15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.all(20),
                         height:  MediaQuery.of(context).size.height/7,
@@ -94,7 +105,14 @@ class _HomeCustomerReprepageState extends State<HomeCustomerReprepage>{
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ServiceCustomerpage(widget.username))
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.all(20),
                         height:  MediaQuery.of(context).size.height/7,
@@ -128,7 +146,14 @@ class _HomeCustomerReprepageState extends State<HomeCustomerReprepage>{
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.all(20),
                         height:  MediaQuery.of(context).size.height/7,
@@ -161,6 +186,47 @@ class _HomeCustomerReprepageState extends State<HomeCustomerReprepage>{
                         ),
                       ),
                     ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    vehiclepage())
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        height:  MediaQuery.of(context).size.height/7,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 243, 243, 243),
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/Image/infovehiculo.png"),
+                            Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Informe de vehículos", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17),),
+                                Text("Informacion del vehículo \nregistrados")
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 )
             ),

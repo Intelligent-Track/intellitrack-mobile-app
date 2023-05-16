@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../settings/settings_page.dart';
+import '../warehouse/warehouse_page.dart';
 
 
 class HomeManagerpage extends StatefulWidget {
+  String username;
+  HomeManagerpage(this.username);
   @override
   State<HomeManagerpage> createState() => _HomeManagerpageState();
 }
@@ -60,7 +63,14 @@ class _HomeManagerpageState extends State<HomeManagerpage>{
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                       Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                   WarehouseListPage())
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,
@@ -94,7 +104,14 @@ class _HomeManagerpageState extends State<HomeManagerpage>{
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,
@@ -128,7 +145,14 @@ class _HomeManagerpageState extends State<HomeManagerpage>{
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,

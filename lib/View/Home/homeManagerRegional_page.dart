@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../settings/settings_page.dart';
+import '../warehouse/warehouse_page.dart';
 
 
 class HomeManagerRegionalpage extends StatefulWidget {
+  String username;
+  HomeManagerRegionalpage(this.username);
   @override
   State<HomeManagerRegionalpage> createState() => _HomeManagerpageRegionalState();
 }
@@ -60,7 +63,14 @@ class _HomeManagerpageRegionalState extends State<HomeManagerRegionalpage>{
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                   WarehouseListPage())
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,
@@ -94,7 +104,14 @@ class _HomeManagerpageRegionalState extends State<HomeManagerRegionalpage>{
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,
@@ -128,7 +145,14 @@ class _HomeManagerpageRegionalState extends State<HomeManagerRegionalpage>{
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Proxima funcionalidad", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       height:  MediaQuery.of(context).size.height/7,

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intellitrack/View/ServicesCustomer/InfoService_page.dart';
 import '../Home/homeCustomerAdmin_page.dart';
 import '../Home/homeCustomerRepre_page.dart';
 import '../Home/homeDriver_page.dart';
@@ -9,6 +10,7 @@ import '../Home/homeManagerGeneral_page.dart';
 import '../Home/homeManagerRegional_page.dart';
 import '../../Controller/login_service.dart';
 import '../forgotpasword/forgotpaswordStep1_page.dart';
+import '../quotation/quotation_page.dart';
 import '../singup/singup_page.dart';
 
 
@@ -139,7 +141,8 @@ class _LoginpageState extends State<Loginpage>{
                                 },
                               ),
                             ],
-                          )),
+                          )
+                        ),
                         Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/50)),
                         ElevatedButton(
                             onPressed: () async {
@@ -157,7 +160,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomePageDriverpage()),(Route<dynamic> route) => false,
+                                              HomePageDriverpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                                 if(rep.message.contains("ROLE_GERENTEGEN")){
@@ -167,7 +170,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeManagerpage()),(Route<dynamic> route) => false,
+                                              HomeManagerpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                                 if(rep.message.contains("ROLE_GERENTEREG")){
@@ -177,9 +180,10 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeManagerRegionalpage()),(Route<dynamic> route) => false,
+                                              HomeManagerRegionalpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
+
                                 if(rep.message.contains("ROLE_CLIENTEADM")){
                                   correo.clear();
                                   contrasena.clear();
@@ -187,7 +191,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeCustomerAdminpage()),(Route<dynamic> route) => false,
+                                              HomeCustomerAdminpage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                                 if(rep.message.contains("ROLE_CLIENTEREPRE")){
@@ -197,7 +201,7 @@ class _LoginpageState extends State<Loginpage>{
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeCustomerReprepage()),(Route<dynamic> route) => false,
+                                              HomeCustomerReprepage(rep.username)),(Route<dynamic> route) => false,
                                   );
                                 }
                               }else{
@@ -212,9 +216,7 @@ class _LoginpageState extends State<Loginpage>{
                                     ),
                                   );
                                 });
-
                               }
-
                               }
                             },
                             child: Container(
@@ -238,8 +240,30 @@ class _LoginpageState extends State<Loginpage>{
                           );
                         }, child:Text("¿Olvido su contraseña? ", style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w400),),style: ButtonStyle(
                           overlayColor: MaterialStateProperty.all<Color>(Colors.grey), // color deseado
-                        ))
+                          )
+                        )
                       ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                   QuotationPage())
+                      );
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height/15,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("¿Quieres conocer el precio de un envío sin Ingresar?", style: TextStyle(color: Colors.grey),),
+                          Text(" COTIZA", style: TextStyle(color: Color.fromARGB(255, 255, 110, 89)),),
+                        ],
+                      ),
                     ),
                   ),
                   GestureDetector(
