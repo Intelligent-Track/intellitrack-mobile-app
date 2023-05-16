@@ -38,6 +38,9 @@ class Environment {
   static String get infoUserPath {
     return dotenv.env['INFOUSER_PATH'] ?? 'NOT FOUND';
   }
+  static String get warehousePath {
+    return dotenv.env['WAREHOUSE_PATH'] ?? 'NOT FOUND';
+  }
 
   static String get editDeliveryPath {
     return dotenv.env['EDITDELIVEY_PATH'] ?? 'NOT FOUND';
